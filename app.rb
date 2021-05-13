@@ -13,7 +13,7 @@ class App < Sinatra::Base
     (@number ** 2).to_s
   end
  
-  get '/say/:number/:phrase/' do
+  get '/say/:number/:phrase' do
     number = params[:number].to_i
     phrase = params[:phrase]
     phrase * number
@@ -26,14 +26,22 @@ class App < Sinatra::Base
    @word4 = params[:word4]
    @word5 = params[:word5]
    "#{@word1} #{@word2} #{@word3} #{@word4} #{@word5}."
-
   end
 
   get '/:operation/:number1/:number2' do
-    @number1 = params[:number1]
-    @number2 = params[:number2]
+    @number1 = params[:number1].to_i
+    @number2 = params[:number2].to_i
     @operation = params[:operation]
-    @number1 @operation @number2
+    
+    if @operation == 'add'
+      @number1 + @number2
+    elsif @operation == 'subtract'
+      @number1 - @number2
+    elsif @operation == 'multiply'
+      @number1 * @number2
+    elsif @operation == 'divide'
+      @number1 / @number2
+    end
   end
 
 end
